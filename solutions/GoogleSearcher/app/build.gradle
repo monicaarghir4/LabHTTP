@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "ro.pub.cs.systems.eim.lab07.googlesearcher"
         minSdkVersion 16
@@ -16,6 +15,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'ro.pub.cs.systems.eim.lab07.googlesearcher'
 }
 
 dependencies {
