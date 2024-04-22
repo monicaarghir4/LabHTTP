@@ -31,9 +31,9 @@ repositories {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion = '28.0.3'
 
     useLibrary 'org.apache.http.legacy'
+    namespace 'com.android.volley'
 }
 
 apply from: 'rules.gradle'

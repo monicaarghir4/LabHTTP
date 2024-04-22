@@ -13,8 +13,4 @@ public class Utilities {
         return new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
     }
 
-    public static PrintWriter getWriter(HttpURLConnection httpURLConnection) throws IOException {
-        return new PrintWriter(new BufferedOutputStream(httpURLConnection.getOutputStream()));
-    }
-
 }
