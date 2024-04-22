@@ -16,9 +16,8 @@ public class CalculatorWebServiceActivity extends AppCompatActivity {
     private EditText operator1EditText, operator2EditText;
     private TextView resultTextView;
     private Spinner operationSpinner, methodSpinner;
-    private Button displayResultButton;
 
-    private DisplayResultButtonClickListener displayResultButtonClickListener = new DisplayResultButtonClickListener();
+    private final DisplayResultButtonClickListener displayResultButtonClickListener = new DisplayResultButtonClickListener();
     private class DisplayResultButtonClickListener implements View.OnClickListener {
 
         @Override
@@ -38,12 +37,12 @@ public class CalculatorWebServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator_web_service);
 
-        operator1EditText = (EditText)findViewById(R.id.operator1_edit_text);
-        operator2EditText = (EditText)findViewById(R.id.operator2_edit_text);
-        resultTextView = (TextView)findViewById(R.id.result_text_view);
-        operationSpinner = (Spinner)findViewById(R.id.operation_spinner);
-        methodSpinner = (Spinner)findViewById(R.id.method_spinner);
-        displayResultButton = (Button)findViewById(R.id.display_result_button);
+        operator1EditText = findViewById(R.id.operator1_edit_text);
+        operator2EditText = findViewById(R.id.operator2_edit_text);
+        resultTextView = findViewById(R.id.result_text_view);
+        operationSpinner = findViewById(R.id.operation_spinner);
+        methodSpinner = findViewById(R.id.method_spinner);
+        Button displayResultButton = findViewById(R.id.display_result_button);
         displayResultButton.setOnClickListener(displayResultButtonClickListener);
     }
 }

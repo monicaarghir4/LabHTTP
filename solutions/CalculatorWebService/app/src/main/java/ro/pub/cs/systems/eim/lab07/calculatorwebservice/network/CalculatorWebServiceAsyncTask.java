@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cz.msebera.android.httpclient.NameValuePair;
-import cz.msebera.android.httpclient.client.ClientProtocolException;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.ResponseHandler;
 import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
@@ -24,7 +24,7 @@ import ro.pub.cs.systems.eim.lab07.calculatorwebservice.general.Constants;
 
 public class CalculatorWebServiceAsyncTask extends AsyncTask<String, Void, String> {
 
-    private TextView resultTextView;
+    private final TextView resultTextView;
 
     public CalculatorWebServiceAsyncTask(TextView resultTextView) {
         this.resultTextView = resultTextView;
@@ -58,16 +58,8 @@ public class CalculatorWebServiceAsyncTask extends AsyncTask<String, Void, Strin
                 ResponseHandler<String> responseHandlerGet = new BasicResponseHandler();
                 try {
                     return httpClient.execute(httpGet, responseHandlerGet);
-                } catch (ClientProtocolException clientProtocolException) {
-                    Log.e(Constants.TAG, clientProtocolException.getMessage());
-                    if (Constants.DEBUG) {
-                        clientProtocolException.printStackTrace();
-                    }
                 } catch (IOException ioException) {
-                    Log.e(Constants.TAG, ioException.getMessage());
-                    if (Constants.DEBUG) {
-                        ioException.printStackTrace();
-                    }
+                    Log.e(Constants.TAG, Objects.requireNonNull(ioException.getMessage()));
                 }
                 break;
             case Constants.POST_OPERATION:
@@ -80,24 +72,13 @@ public class CalculatorWebServiceAsyncTask extends AsyncTask<String, Void, Strin
                     UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(parameters, HTTP.UTF_8);
                     httpPost.setEntity(urlEncodedFormEntity);
                 } catch (UnsupportedEncodingException unsupportedEncodingException) {
-                    Log.e(Constants.TAG, unsupportedEncodingException.getMessage());
-                    if (Constants.DEBUG) {
-                        unsupportedEncodingException.printStackTrace();
-                    }
+                    Log.e(Constants.TAG, Objects.requireNonNull(unsupportedEncodingException.getMessage()));
                 }
                 ResponseHandler<String> responseHandlerPost = new BasicResponseHandler();
                 try {
                     return httpClient.execute(httpPost, responseHandlerPost);
-                } catch (ClientProtocolException clientProtocolException) {
-                    Log.e(Constants.TAG, clientProtocolException.getMessage());
-                    if (Constants.DEBUG) {
-                        clientProtocolException.printStackTrace();
-                    }
                 } catch (IOException ioException) {
-                    Log.e(Constants.TAG, ioException.getMessage());
-                    if (Constants.DEBUG) {
-                        ioException.printStackTrace();
-                    }
+                    Log.e(Constants.TAG, Objects.requireNonNull(ioException.getMessage()));
                 }
                 break;
         }
