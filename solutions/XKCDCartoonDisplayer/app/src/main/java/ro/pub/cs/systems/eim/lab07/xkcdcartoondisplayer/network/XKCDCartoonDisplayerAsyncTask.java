@@ -8,36 +8,35 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.client.ClientProtocolException;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.ResponseHandler;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.impl.client.BasicResponseHandler;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
-import ro.pub.cs.systems.eim.lab07.xkcdcartoondisplayer.R;
 import ro.pub.cs.systems.eim.lab07.xkcdcartoondisplayer.entities.XKCDCartoonInformation;
 import ro.pub.cs.systems.eim.lab07.xkcdcartoondisplayer.general.Constants;
 
 public class XKCDCartoonDisplayerAsyncTask extends AsyncTask<String, Void, XKCDCartoonInformation> {
 
-    private TextView xkcdCartoonTitleTextView;
-    private ImageView xkcdCartoonImageView;
-    private TextView xkcdCartoonUrlTextView;
-    private Button previousButton, nextButton;
+    private final TextView xkcdCartoonTitleTextView;
+    private final ImageView xkcdCartoonImageView;
+    private final TextView xkcdCartoonUrlTextView;
+    private final Button previousButton;
+    private final Button nextButton;
 
     private class XKCDCartoonButtonClickListener implements Button.OnClickListener {
 
-        private String xkcdComicUrl;
+        private final String xkcdComicUrl;
 
         public XKCDCartoonButtonClickListener(String xkcdComicUrl) {
             this.xkcdComicUrl = xkcdComicUrl;
@@ -67,16 +66,8 @@ public class XKCDCartoonDisplayerAsyncTask extends AsyncTask<String, Void, XKCDC
         String pageSourceCode = null;
         try {
             pageSourceCode = httpClient.execute(httpGetXKCD, responseHandler);
-        } catch (ClientProtocolException clientProtocolException) {
-            Log.e(Constants.TAG, clientProtocolException.getMessage());
-            if (Constants.DEBUG) {
-                clientProtocolException.printStackTrace();
-            }
         } catch (IOException ioException) {
-            Log.e(Constants.TAG, ioException.getMessage());
-            if (Constants.DEBUG) {
-                ioException.printStackTrace();
-            }
+            Log.e(Constants.TAG, Objects.requireNonNull(ioException.getMessage()));
         }
         if (pageSourceCode != null) {
             Document document = Jsoup.parse(pageSourceCode);
@@ -99,16 +90,8 @@ public class XKCDCartoonDisplayerAsyncTask extends AsyncTask<String, Void, XKCDC
                 if (httpEntity != null) {
                     xkcdCartoonInformation.setCartoonBitmap(BitmapFactory.decodeStream(httpEntity.getContent()));
                 }
-            } catch (ClientProtocolException clientProtocolException) {
-                Log.e(Constants.TAG, clientProtocolException.getMessage());
-                if (Constants.DEBUG) {
-                    clientProtocolException.printStackTrace();
-                }
             } catch (IOException ioException) {
-                Log.e(Constants.TAG, ioException.getMessage());
-                if (Constants.DEBUG) {
-                    ioException.printStackTrace();
-                }
+                Log.e(Constants.TAG, Objects.requireNonNull(ioException.getMessage()));
             }
 
             // cartoon links urls
