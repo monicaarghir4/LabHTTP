@@ -14,12 +14,11 @@ import ro.pub.cs.systems.eim.lab07.earthquakelister.model.EarthquakeInformation;
 
 public class EarthquakeInformationAdapter extends BaseAdapter {
 
-    private Context context;
-    private List<EarthquakeInformation> content;
+    private final List<EarthquakeInformation> content;
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
 
-    private class EarthquakeInformationViewHolder {
+    private static class EarthquakeInformationViewHolder {
         TextView latitudeTextView, longitudeTextView;
         TextView magnitudeTextView;
         TextView depthTextView;
@@ -28,10 +27,9 @@ public class EarthquakeInformationAdapter extends BaseAdapter {
     }
 
     public EarthquakeInformationAdapter(Context context, List<EarthquakeInformation> content) {
-        this.context = context;
         this.content = content;
 
-        this.layoutInflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -59,12 +57,12 @@ public class EarthquakeInformationAdapter extends BaseAdapter {
         if (convertView == null) {
             view = layoutInflater.inflate(R.layout.earthquake_information, parent, false);
             earthquakeInformationViewHolder = new EarthquakeInformationViewHolder();
-            earthquakeInformationViewHolder.latitudeTextView = (TextView)view.findViewById(R.id.latitude_text_view);
-            earthquakeInformationViewHolder.longitudeTextView = (TextView)view.findViewById(R.id.longitude_text_view);
-            earthquakeInformationViewHolder.magnitudeTextView = (TextView)view.findViewById(R.id.magnitude_text_view);
-            earthquakeInformationViewHolder.depthTextView = (TextView)view.findViewById(R.id.depth_text_view);
-            earthquakeInformationViewHolder.sourceTextView = (TextView)view.findViewById(R.id.source_text_view);
-            earthquakeInformationViewHolder.dateAndTimeTextView = (TextView)view.findViewById(R.id.date_and_time_text_view);
+            earthquakeInformationViewHolder.latitudeTextView = view.findViewById(R.id.latitude_text_view);
+            earthquakeInformationViewHolder.longitudeTextView = view.findViewById(R.id.longitude_text_view);
+            earthquakeInformationViewHolder.magnitudeTextView = view.findViewById(R.id.magnitude_text_view);
+            earthquakeInformationViewHolder.depthTextView = view.findViewById(R.id.depth_text_view);
+            earthquakeInformationViewHolder.sourceTextView = view.findViewById(R.id.source_text_view);
+            earthquakeInformationViewHolder.dateAndTimeTextView = view.findViewById(R.id.date_and_time_text_view);
             view.setTag(earthquakeInformationViewHolder);
         } else {
             view = convertView;
