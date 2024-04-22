@@ -3,18 +3,28 @@ package ro.pub.cs.systems.eim.calculatorwebservice
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
-class CalculatorViewModel(
-    private val calculatorService: CalculatorService
-) : ViewModel() {
+class CalculatorViewModel : ViewModel() {
+    companion object {
+        private const val BASE_URL = "http://jepi.cs.pub.ro/"
+    }
+
     private val _result = MutableLiveData<String>()
     val result: LiveData<String> = _result
+
+    // Create a Retrofit instance to handle the communication with the web service.
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    private val calculatorService: CalculatorService = retrofit.create(CalculatorService::class.java)
 
     /**
      * Calculate the result of the operation.
@@ -50,20 +60,4 @@ class CalculatorViewModel(
         }
     }
 }
-
-/**
- * Factory for creating a [CalculatorViewModel] with a constructor that takes a [CalculatorService].
- */
-class CalculatorViewModelFactory(
-    private val calculatorService: CalculatorService
-) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CalculatorViewModel::class.java)) {
-            return CalculatorViewModel(calculatorService) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
-
 
