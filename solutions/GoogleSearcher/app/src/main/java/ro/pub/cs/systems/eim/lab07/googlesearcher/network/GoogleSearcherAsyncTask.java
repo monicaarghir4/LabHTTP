@@ -16,7 +16,7 @@ import ro.pub.cs.systems.eim.lab07.googlesearcher.general.Constants;
 
 public class GoogleSearcherAsyncTask extends AsyncTask<String, Void, String> {
 
-    private WebView googleResultsWebView;
+    private final WebView googleResultsWebView;
 
     public GoogleSearcherAsyncTask(WebView googleResultsWebView) {
         this.googleResultsWebView = googleResultsWebView;
@@ -31,14 +31,8 @@ public class GoogleSearcherAsyncTask extends AsyncTask<String, Void, String> {
             return httpClient.execute(httpGet, responseHandler);
         } catch (ClientProtocolException clientProtocolException) {
             Log.e(Constants.TAG, clientProtocolException.getMessage());
-            if (Constants.DEBUG) {
-                clientProtocolException.printStackTrace();
-            }
         } catch (IOException ioException) {
             Log.e(Constants.TAG, ioException.getMessage());
-            if (Constants.DEBUG) {
-                ioException.printStackTrace();
-            }
         }
         return null;
     }

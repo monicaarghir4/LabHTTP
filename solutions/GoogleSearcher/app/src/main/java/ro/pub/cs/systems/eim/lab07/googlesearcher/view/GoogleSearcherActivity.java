@@ -16,23 +16,22 @@ public class GoogleSearcherActivity extends AppCompatActivity {
 
     private EditText keywordEditText;
     private WebView googleResultsWebView;
-    private Button searchGoogleButton;
 
-    private SearchGoogleButtonClickListener searchGoogleButtonClickListener = new SearchGoogleButtonClickListener();
+    private final SearchGoogleButtonClickListener searchGoogleButtonClickListener = new SearchGoogleButtonClickListener();
     private class SearchGoogleButtonClickListener implements Button.OnClickListener {
 
         @Override
         public void onClick(View view) {
-            String keyword = keywordEditText.getText().toString();
-            if (keyword == null || keyword.isEmpty()) {
+            StringBuilder keyword = new StringBuilder(keywordEditText.getText().toString());
+            if (keyword.length() == 0) {
                 Toast.makeText(getApplication(), Constants.EMPTY_KEYWORD_ERROR_MESSAGE, Toast.LENGTH_LONG).show();
             } else {
-                String[] keywords = keyword.split(" ");
-                keyword = Constants.SEARCH_PREFIX + keywords[0];
+                String[] keywords = keyword.toString().split(" ");
+                keyword = new StringBuilder(Constants.SEARCH_PREFIX + keywords[0]);
                 for (int index = 1; index < keywords.length; index++) {
-                    keyword += "+" + keywords[index];
+                    keyword.append("+").append(keywords[index]);
                 }
-                new GoogleSearcherAsyncTask(googleResultsWebView).execute(keyword);
+                new GoogleSearcherAsyncTask(googleResultsWebView).execute(keyword.toString());
             }
         }
     }
@@ -45,7 +44,7 @@ public class GoogleSearcherActivity extends AppCompatActivity {
         keywordEditText = (EditText)findViewById(R.id.keyword_edit_text);
         googleResultsWebView = (WebView)findViewById(R.id.google_results_web_view);
 
-        searchGoogleButton = (Button)findViewById(R.id.search_google_button);
+        Button searchGoogleButton = (Button) findViewById(R.id.search_google_button);
         searchGoogleButton.setOnClickListener(searchGoogleButtonClickListener);
     }
 }
