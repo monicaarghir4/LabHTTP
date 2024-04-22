@@ -15,31 +15,30 @@ import ro.pub.cs.systems.eim.lab07.landmarklister.network.LandmarkListerAsyncTas
 public class LandmarkListerActivity extends AppCompatActivity {
 
     private EditText northEditText, southEditText, eastEditText, westEditText;
-    private Button showResultsButton;
     private ListView landmarksListView;
 
-    private ShowResultsButtonClickListener showResultsButtonClickListener = new ShowResultsButtonClickListener();
+    private final ShowResultsButtonClickListener showResultsButtonClickListener = new ShowResultsButtonClickListener();
     private class ShowResultsButtonClickListener implements Button.OnClickListener {
 
         @Override
         public void onClick(View view) {
             String northString = northEditText.getText().toString();
-            if (northString == null || northString.isEmpty()) {
+            if (northString.isEmpty()) {
                 Toast.makeText(getApplication(), Constants.MISSING_INFORMATION_ERROR_MESSAGE, Toast.LENGTH_LONG).show();
                 return;
             }
             String southString = southEditText.getText().toString();
-            if (southString == null || southString.isEmpty()) {
+            if (southString.isEmpty()) {
                 Toast.makeText(getApplication(), Constants.MISSING_INFORMATION_ERROR_MESSAGE, Toast.LENGTH_LONG).show();
                 return;
             }
             String eastString = eastEditText.getText().toString();
-            if (eastString == null || eastString.isEmpty()) {
+            if (eastString.isEmpty()) {
                 Toast.makeText(getApplication(), Constants.MISSING_INFORMATION_ERROR_MESSAGE, Toast.LENGTH_LONG).show();
                 return;
             }
             String westString = westEditText.getText().toString();
-            if (westString == null || westString.isEmpty()) {
+            if (westString.isEmpty()) {
                 Toast.makeText(getApplication(), Constants.MISSING_INFORMATION_ERROR_MESSAGE, Toast.LENGTH_LONG).show();
                 return;
             }
@@ -52,14 +51,14 @@ public class LandmarkListerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landmark_lister);
 
-        northEditText = (EditText)findViewById(R.id.north_edit_text);
-        southEditText = (EditText)findViewById(R.id.south_edit_text);
-        eastEditText = (EditText)findViewById(R.id.east_edit_text);
-        westEditText = (EditText)findViewById(R.id.west_edit_text);
+        northEditText = findViewById(R.id.north_edit_text);
+        southEditText = findViewById(R.id.south_edit_text);
+        eastEditText = findViewById(R.id.east_edit_text);
+        westEditText = findViewById(R.id.west_edit_text);
 
-        showResultsButton = (Button)findViewById(R.id.show_results_button);
+        Button showResultsButton = findViewById(R.id.show_results_button);
         showResultsButton.setOnClickListener(showResultsButtonClickListener);
 
-        landmarksListView = (ListView)findViewById(R.id.landmarks_list_view);
+        landmarksListView = findViewById(R.id.landmarks_list_view);
     }
 }

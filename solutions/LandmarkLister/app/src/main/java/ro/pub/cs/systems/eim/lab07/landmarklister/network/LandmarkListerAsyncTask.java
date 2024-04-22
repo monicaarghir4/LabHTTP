@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cz.msebera.android.httpclient.client.ClientProtocolException;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -61,21 +62,8 @@ public class LandmarkListerAsyncTask extends AsyncTask<String, Void, List<Landma
                 ));
             }
             return landmarkInformationList;
-        } catch (JSONException jsonException) {
-            Log.e(Constants.TAG, jsonException.getMessage());
-            if (Constants.DEBUG) {
-                jsonException.printStackTrace();
-            }
-        } catch (ClientProtocolException clientProtocolException) {
-            Log.e(Constants.TAG, clientProtocolException.getMessage());
-            if (Constants.DEBUG) {
-                clientProtocolException.printStackTrace();
-            }
-        } catch (IOException ioException) {
-            Log.e(Constants.TAG, ioException.getMessage());
-            if (Constants.DEBUG) {
-                ioException.printStackTrace();
-            }
+        } catch (JSONException | IOException jsonException) {
+            Log.e(Constants.TAG, Objects.requireNonNull(jsonException.getMessage()));
         }
         return null;
     }
